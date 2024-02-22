@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Scholarship Application Form</title>
+</head>
+<body>
+
+<h3>Scholarship Application Form</h3>
+<h5>* denotes mandatory field</h5>
+
+<form id="applicationForm" method="post">
+    <label for="studentId">Student Id*</label><br>
+    <input type="text" id="studentId" name="studentId" required><br>
+    
+    <label for="fullName">Full Name*</label><br>
+    <input type="text" id="fullName" name="fullName" required><br>
+    
+    <label for="email">Email Address*</label><br>
+    <input type="email" id="email" name="email" required><br>
+    
+    <label for="dob">Date of Birth*</label><br>
+    <input type="text" id="dob" name="dob" placeholder="MM/DD/YYYY" required><br>
+    
+    <label for="cgpa">CGPA*</label><br>
+    <input type="text" id="cgpa" name="cgpa" required><br>
+    
+    <label for="phoneNo">Phone No.*</label><br>
+    <input type="text" id="phoneNo" name="phoneNo" required><br>
+    
+    <button type="submit">Submit</button>
+</form>
+
+<script>
+        document.getElementById('applicationForm').addEventListener('submit', function(event) {
+        event.preventDefault();
+    
+        var studentId = document.getElementById('studentId').value.trim();
+        var fullName = document.getElementById('fullName').value.trim();
+        var email = document.getElementById('email').value.trim();
+        var dob = document.getElementById('dob').value.trim();
+        var cgpa = document.getElementById('cgpa').value.trim();
+        var phoneNo = document.getElementById('phoneNo').value.trim();
+        
+        var errors = [];
+    
+        var studentIdParts = studentId.split('-');
+        if (studentIdParts.length !== 3 ||
+            isNaN(parseInt(studentIdParts[0])) ||
+            isNaN(parseInt(studentIdParts[1])) ||
+            isNaN(parseInt(studentIdParts[2]))) {
+            errors.push("Student ID format is invalid");
+        }
+    
+        var fullNameParts = fullName.split(' ');
+        if (fullNameParts.length !== 2 || fullName.length < 6 || fullName.length > 30) {
+            errors.push("Full Name must contain both first name and last name and be between 6 and 30 characters");
+        }
+        
+        var emailParts = email.split('@');
+        if (emailParts.length !== 2 || emailParts[0] === '' || emailParts[1].indexOf('.') === -1) {
+            errors.push("Email Address is invalid");
+        }
+        
+        var dobParts = dob.split('/');
+        var dobDate = new Date(dobParts[2], dobParts[0] - 1, dobParts[1]);
+        var currentDate = new Date();
+        var minDate = new Date(1997, 0, 1);
+        if (!(dobDate instanceof Date && !isNaN(dobDate.valueOf()) && dobDate < currentDate && dobDate >= minDate)) {
+            errors.push("Date of Birth is invalid or out of range");
+        }
+        
+        if (isNaN(cgpa) || parseFloat(cgpa) <= 3.90) {
+            errors.push("CGPA must be a number greater than 3.90");
+        }
+        
+        var validPhonePrefixes = ['017', '019', '016', '013', '014', '+88017', '+88019', '+88016', '+88013', '+88014'];
+        var validPhoneLengths = [13, 14];
+        var phoneNoPrefix = phoneNo.substring(0, phoneNo.length > 5 ? 6 : 0);
+        if (!validPhonePrefixes.includes(phoneNoPrefix) || !validPhoneLengths.includes(phoneNo.length)) {
+            errors.push("Phone No. format is invalid");
+        }
+        
+        if (errors.length > 0) {
+            alert("Validation errors:\n" + errors.join("\n"));
+        } else {
+            alert("Form submitted successfully!");
+            
+        }
+    });
+</script>
+    
+    
+
+</body>
+</html>
