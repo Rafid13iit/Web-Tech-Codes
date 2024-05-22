@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>HTML5 New Features Example</title>
+    <style>
+        #myCanvas {
+            border: 1px solid black;
+        }
+    </style>
+</head>
+<body>
+    <h1>HTML5 New Features Example</h1>
+
+    <!-- Canvas Element -->
+    <h2>Canvas Example</h2>
+    <canvas id="myCanvas" width="400" height="300"></canvas>
+    <button onclick="drawOnCanvas()">Draw on Canvas</button>
+
+    <!-- Geolocation Example -->
+    <h2>Geolocation Example</h2>
+    <button onclick="getGeolocation()">Get My Location</button>
+    <p id="location"></p>
+
+    <script>
+        // Function to draw on the canvas
+        function drawOnCanvas() {
+            var canvas = document.getElementById('myCanvas');
+            var context = canvas.getContext('2d');
+
+            // Draw a rectangle
+            context.fillStyle = '#FF0000';
+            context.fillRect(50, 50, 200, 100);
+
+            // Draw a circle
+            context.beginPath();
+            context.arc(300, 150, 50, 0, Math.PI * 2, true);
+            context.fillStyle = '#00FF00';
+            context.fill();
+
+            // Draw text
+            context.font = '20px Arial';
+            context.fillStyle = '#0000FF';
+            context.fillText('Hello, Canvas!', 100, 200);
+        }
+
+        // Function to get the geolocation of the user
+        function getGeolocation() {
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(showPosition, showError);
+            } else {
+                document.getElementById('location').textContent = 'Geolocation is not supported by this browser.';
+            }
+        }
+
+        // Function to display the position
+        function showPosition(position) {
+            var latitude = position.coords.latitude;
+            var longitude = position.coords.longitude;
+            document.getElementById('location').textContent = 'Latitude: ' + latitude + ', Longitude: ' + longitude;
+        }
+
+        // Function to handle errors
+        function showError(error) {
+            switch(error.code) {
+                case error.PERMISSION_DENIED:
+                    document.getElementById('location').textContent = 'User denied the request for Geolocation.';
+                    break;
+                case error.POSITION_UNAVAILABLE:
+                    document.getElementById('location').textContent = 'Location information is unavailable.';
+                    break;
+                case error.TIMEOUT:
+                    document.getElementById('location').textContent = 'The request to get user location timed out.';
+                    break;
+                case error.UNKNOWN_ERROR:
+                    document.getElementById('location').textContent = 'An unknown error occurred.';
+                    break;
+            }
+        }
+    </script>
+</body>
+</html>

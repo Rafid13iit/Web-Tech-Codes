@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Add List Item Example</title>
+</head>
+<body>
+<ul id="list">
+    <li><a href="link1.html" class="link_one">Link Number One</a></li>
+    <li><a href="link2.html">Link Number Two</a></li>
+    <li><a href="link3.html">Link Number Three</a></li>
+    <li><a href="link4.html">Link Number Four</a></li>
+    <li><a href="link5.html" id="link5">Link Number Five</a></li>
+</ul>
+
+<script>
+  // Create a new li element
+  var newLi = document.createElement('li');
+
+  // Create a new anchor element
+  var newAnchor = document.createElement('a');
+
+  // Set the href attribute of the anchor
+  newAnchor.href = "link6.html";
+
+  // Set the id attribute of the anchor
+  newAnchor.id = "link6";
+
+  // Set the text content of the anchor
+  newAnchor.textContent = "Link Number Six";
+
+  // Append the anchor to the li
+  newLi.appendChild(newAnchor);
+
+  // Append the new li to the ul with id "list"
+  document.getElementById('list').appendChild(newLi);
+</script>
+</body>
+</html>

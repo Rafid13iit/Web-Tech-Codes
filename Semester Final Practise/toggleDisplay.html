@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Toggle Display Example</title>
+</head>
+<body>
+  <div id="myElement">This is a toggleable element.</div>
+  <button onclick="toggleDisplay('myElement')">Toggle Display</button>
+
+  <script>
+    function toggleDisplay(elementId) {
+      var element = document.getElementById(elementId);
+      if (element.style.display === "none") {
+        element.style.display = "block";
+      } else {
+        element.style.display = "none";
+      }
+    }
+  </script>
+</body>
+</html>
